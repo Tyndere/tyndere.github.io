@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tyndere - A Lightweight Web Framework</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="container">
+        <div class="logo">Tyndere</div>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="./soon.html">Examples</a></li>
+          <li><a href="./soon.html">Docs</a></li>
+          <li><a href="https://github.com/tyndere" class="github-link">GitHub</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="hero container">
+      <h1>Tyndere</h1>
+      <p class="tagline">A thinner approach to web development</p>
+      <p class="description">Lightweight, intuitive, and powerful. Build modern web applications with less code.</p>
+      <div class="cta-buttons">
+        <a href="#getting-started" class="btn primary">Get Started</a>
+        <a href="https://github.com/tyndere" class="btn secondary">View on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="features" class="features">
+      <div class="container">
+        <h2>Why Tyndere?</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>Lightweight</h3>
+            <p>Only 3kb minified and gzipped. No dependencies, no bloat.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Fast</h3>
+            <p>Optimized rendering with minimal overhead for maximum performance.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🧩</div>
+            <h3>Composable</h3>
+            <p>Build complex UIs from simple, reusable components.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Transparent</h3>
+            <p>No magic. Easy to understand how your code works.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="getting-started" class="getting-started">
+      <div class="container">
+        <h2>Getting Started</h2>
+        <p>Install Tyndere using npm or include it directly in your HTML.</p>
+        
+        <div class="code-block">
+          <pre><code>npm install tyndere</code></pre>
+        </div>
+        
+        <p>Or include it via CDN:</p>
+        
+        <div class="code-block">
+          <pre><code>&lt;script src="https://unpkg.com/tyndere@latest/dist/tyndere.min.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="examples" class="examples">
+      <div class="container">
+        <h2>Examples</h2>
+        
+        <div class="example">
+          <h3>Creating a Component</h3>
+          <div class="code-block">
+            <pre><code class="language-js">// Define a simple counter component
+const Counter = Tyndere.component({
+  state: { count: 0 },
+  render: function(state, props) {
+    return Tyndere.h('div', { class: 'counter' }, [
+      Tyndere.h('p', {}, `Count: ${state.count}`),
+      Tyndere.h('button', { 
+        onclick: () => this.setState({ count: state.count + 1 }) 
+      }, 'Increment')
+    ]);
+  }
+});</code></pre>
+          </div>
+        </div>
+        
+        <div class="example">
+          <h3>Using HTML Templates</h3>
+          <div class="code-block">
+            <pre><code class="language-js">// Tyndere works with HTML templates too
+const TodoApp = Tyndere.component({
+  state: { todos: [], text: '' },
+  render: function(state) {
+    return `
+      &lt;div class="todo-app"&gt;
+        &lt;h3&gt;TODO&lt;/h3&gt;
+        &lt;ul&gt;
+          ${state.todos.map(todo => `&lt;li&gt;${todo}&lt;/li&gt;`).join('')}
+        &lt;/ul&gt;
+        &lt;input 
+          value="${state.text}" 
+          onInput="${Tyndere.bind(this, 'handleInput')}"
+        /&gt;
+        &lt;button onClick="${Tyndere.bind(this, 'addTodo')}"&gt;
+          Add #${state.todos.length + 1}
+        &lt;/button&gt;
+      &lt;/div&gt;
+    `;
+  },
+  handleInput: function(e) {
+    this.setState({ text: e.target.value });
+  },
+  addTodo: function() {
+    this.setState(state => ({
+      todos: [...state.todos, state.text],
+      text: ''
+    }));
+  }
+});</code></pre>
+          </div>
+        </div>
+        
+        <div class="example">
+          <h3>CSS Integration</h3>
+          <div class="code-block">
+            <pre><code class="language-js">// Tyndere has built-in CSS support
+const StyledButton = Tyndere.component({
+  styles: `
+    .styled-button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .styled-button:hover {
+      opacity: 0.9;
+    }
+  `,
+  render: function(_, props) {
+    return Tyndere.h('button', { 
+      class: 'styled-button',
+      onclick: props.onClick
+    }, props.children);
+  }
+});</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="docs" class="docs">
+      <div class="container">
+        <h2>Documentation</h2>
+        <p>Explore our comprehensive documentation to learn more about Tyndere's features and capabilities.</p>
+        <div class="docs-grid">
+          <a href="#" class="docs-card">
+            <h3>API Reference</h3>
+            <p>Complete API documentation with examples</p>
+          </a>
+          <a href="#" class="docs-card">
+            <h3>Tutorials</h3>
+            <p>Step-by-step guides for common use cases</p>
+          </a>
+          <a href="#" class="docs-card">
+            <h3>Examples</h3>
+            <p>Real-world examples and code snippets</p>
+          </a>
+          <a href="#" class="docs-card">
+            <h3>Migration Guide</h3>
+            <p>Moving from other frameworks to Tyndere</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Tyndere</div>
+        <p class="footer-tagline">A thinner approach to web development</p>
+        <div class="footer-links">
+          <a href="https://github.com/tyndere">GitHub</a>
+          <a href="#docs">Documentation</a>
+          <a href="#examples">Examples</a>
+          <a href="#">Community</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Tyndere © 2025 by Tyndere Team & Contributors is licensed under CC BY-NC-SA 4.0.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
